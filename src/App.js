@@ -1,8 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import axios from "axios";
+import useSearch from "./hooks/useSearch";
 
 function App() {
+  const [results, search] = useSearch();
+  const [nominated, setNominated] = useState([]);
+
   return (
     <div className="App">
       <header className="App-header">
