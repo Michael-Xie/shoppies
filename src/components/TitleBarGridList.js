@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AddCircle from "@material-ui/icons/AddCircle";
 import RemoveCircle from "@material-ui/icons/RemoveCircle";
 import CheckCircle from "@material-ui/icons/CheckCircle";
-
+import ActionIcon from "./ActionIcon";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -52,36 +52,6 @@ export default function TitlebarGridList({
 }) {
   const classes = useStyles();
 
-  const actionIcon = (tile, type, handleClick) => {
-    const content = {};
-    if (type === "results") {
-      if (tile.selected) {
-        content.label = `Added ${tile.Title} (${tile.Year}) to nomination`;
-        content.disabled = true;
-        content.icon = <CheckCircle />;
-      } else {
-        content.label = `Adds ${tile.Title} (${tile.Year}) to nomination`;
-        content.disabled = false;
-        content.icon = <AddCircle />;
-      }
-    } else if (type === "nominations") {
-      if (!tile.selected) {
-        content.label = `Removed ${tile.Title} (${tile.Year}) from nomination`;
-        content.disabled = false;
-        content.icon = <RemoveCircle />;
-      }
-    }
-    return (
-      <IconButton
-        aria-label={content.label}
-        className={classes.icon}
-        onClick={() => handleClick(tile.imdbID)}
-        disabled={content.disabled}
-      >
-        {content.icon}
-      </IconButton>
-    );
-  };
   return (
     <div className={classes.root}>
       <GridList cellHeight={200} className={classes.gridList}>
@@ -104,7 +74,7 @@ export default function TitlebarGridList({
                   //   >
                   //     {tile.selected ? <CheckCircle /> : <AddCircle />}
                   //   </IconButton>
-                  actionIcon(tile, type, handleClick)
+                  ActionIcon(tile, type, handleClick)
                 }
               />
             </GridListTile>

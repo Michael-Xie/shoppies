@@ -19,7 +19,6 @@ function App() {
         <div className="search-results">
           <TitlebarGridList
             results={results}
-            draft={draft}
             title={
               results.length > 0
                 ? "Search Results"
@@ -30,7 +29,14 @@ function App() {
             handleClick={(value) => nominate(value)}
           />
         </div>
-        <div className="nominations"></div>
+        <div className="nominations">
+          <TitlebarGridList
+            results={nominated}
+            title={"nominations"}
+            type={"nominations"}
+            handleClick={(value) => console.log(value, nominated)}
+          />
+        </div>
       </div>
       <p>{JSON.stringify(nominated)}</p>
     </div>
