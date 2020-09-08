@@ -36,19 +36,17 @@ function App() {
         //   justifyContent: "space-between",
         // }}
       >
-        {/* {nominated.length >= 5 && (
+        {nominated.length >= 5 && (
           <div
             style={{ background: "yellow" }}
           >{`You have nominated the maximum of 5 movies!`}</div>
-        )} */}
+        )}
         <span className="search-results">
           <TitlebarGridList
             results={results}
             title={"Search Results"}
             handleClick={(value) => {
-              if (nominated.length >= 5) {
-                setOpen(true);
-              } else {
+              if (nominated.length < 5) {
                 nominate(value);
               }
             }}
