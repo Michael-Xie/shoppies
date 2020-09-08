@@ -6,14 +6,9 @@ import TitlebarGridList from "./components/TitleBarGridList";
 import Banner from "./components/Banner";
 
 function App() {
-  const [
-    results,
-    nominated,
-    error,
-    search,
-    nominate,
-    DeNominate,
-  ] = useAppState();
+  const [results, nominated, error, search, nominate, DeNominate] = useAppState(
+    JSON.parse(localStorage.getItem("nominations")) || []
+  );
   const [draft, setDraft] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -41,11 +36,11 @@ function App() {
         //   justifyContent: "space-between",
         // }}
       >
-        {nominated.length >= 5 && (
+        {/* {nominated.length >= 5 && (
           <div
             style={{ background: "yellow" }}
           >{`You have nominated the maximum of 5 movies!`}</div>
-        )}
+        )} */}
         <span className="search-results">
           <TitlebarGridList
             results={results}

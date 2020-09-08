@@ -4,10 +4,10 @@ import axios from "axios";
 const RESULT_PER_PAGE = 10;
 const BASE_URL = "http://www.omdbapi.com";
 
-const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
+const useAppState = (initialNominations, resultsPerPage = RESULT_PER_PAGE) => {
   const [results, setResults] = useState([]);
   const [count, setCount] = useState(0);
-  const [nominated, setNominated] = useState([]);
+  const [nominated, setNominated] = useState(initialNominations || []);
   const [error, setError] = useState("");
 
   const search = async (term, type = "movie", page = 1) => {
@@ -39,7 +39,15 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
     const newResults = [...results];
     newResults[resultIndex].selected = true;
     setResults(newResults);
-    setNominated((prev) => [...prev, newResults[resultIndex]]);
+    setNominated((prev) => {
+      // store for later retrieval when user leaves page
+
+      localStorage.setItem(
+        "nominations",
+        JSON.stringify([...prev, newResults[resultIndex]])
+      );
+      return [...prev, newResults[resultIndex]];
+    });
   };
 
   const deNominate = (id) => {
@@ -49,6 +57,9 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
       const index = newNominated.findIndex((item) => item.imdbID === id);
       // remove movie from nominated list
       newNominated.splice(index, 1);
+      // store for later retrieval when user leaves page
+      localStorage.setItem("nominations", JSON.stringify(newNominated));
+
       return newNominated;
     });
     setResults((prev) => {
