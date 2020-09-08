@@ -52,6 +52,36 @@ export default function TitlebarGridList({
 }) {
   const classes = useStyles();
 
+  const actionIcon = (tile, type, handleClick) => {
+    const content = {};
+    if (type === "results") {
+      if (tile.selected) {
+        content.label = `Added ${tile.Title} (${tile.Year}) to nomination`;
+        content.disabled = true;
+        content.icon = <CheckCircle />;
+      } else {
+        content.label = `Adds ${tile.Title} (${tile.Year}) to nomination`;
+        content.disabled = false;
+        content.icon = <AddCircle />;
+      }
+    } else if (type === "nominations") {
+      if (!tile.selected) {
+        content.label = `Removed ${tile.Title} (${tile.Year}) from nomination`;
+        content.disabled = false;
+        content.icon = <RemoveCircle />;
+      }
+    }
+    return (
+      <IconButton
+        aria-label={content.label}
+        className={classes.icon}
+        onClick={() => handleClick(tile.imdbID)}
+        disabled={content.disabled}
+      >
+        {content.icon}
+      </IconButton>
+    );
+  };
   return (
     <div className={classes.root}>
       <GridList cellHeight={200} className={classes.gridList}>
@@ -66,14 +96,15 @@ export default function TitlebarGridList({
                 title={`${tile.Title}`}
                 subtitle={<span>{tile.Year}</span>}
                 actionIcon={
-                  <IconButton
-                    aria-label={`Adds ${tile.Title} (${tile.Year}) to nomination`}
-                    className={classes.icon}
-                    onClick={() => handleClick(tile.imdbID)}
-                    disabled={tile.selected ? true : false}
-                  >
-                    {tile.selected ? <CheckCircle /> : <AddCircle />}
-                  </IconButton>
+                  //   <IconButton
+                  //     aria-label={`Adds ${tile.Title} (${tile.Year}) to nomination`}
+                  //     className={classes.icon}
+                  //     onClick={() => handleClick(tile.imdbID)}
+                  //     disabled={tile.selected ? true : false}
+                  //   >
+                  //     {tile.selected ? <CheckCircle /> : <AddCircle />}
+                  //   </IconButton>
+                  actionIcon(tile, type, handleClick)
                 }
               />
             </GridListTile>
