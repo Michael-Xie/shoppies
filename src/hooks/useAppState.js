@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const RESULT_PER_PAGE = 10;
-const BASE_URL = "http://www.omdbapi.com";
+const BASE_URL = "https://www.omdbapi.com";
 
 const useAppState = (initialNominations, resultsPerPage = RESULT_PER_PAGE) => {
   const [results, setResults] = useState([]);
