@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import axios from "axios";
-import useSearch from "./hooks/useSearch";
+import useAppState from "./hooks/useAppState";
 
 function App() {
-  const [results, search] = useSearch();
-  const [nominated, setNominated] = useState([]);
+  const [results, search, nominate] = useAppState();
 
   return (
     <div className="App">
