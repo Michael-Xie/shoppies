@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import useAppState from "./hooks/useAppState";
 import SearchBar from "material-ui-search-bar";
 import TitlebarGridList from "./components/TitleBarGridList";
