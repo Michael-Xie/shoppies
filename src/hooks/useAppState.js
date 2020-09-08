@@ -10,18 +10,22 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
   const [nominated, setNominated] = useState([]);
 
   const search = async (term, type = "movie", page = 1) => {
+    console.log("enters search");
     const searchResponse = await axios.get(
       `${BASE_URL}/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${term}&type=${type}&page=${page}`
     );
-    const rawResults = searchResponse.data.Search.map((result) => {
-      if (nominated.findIndex((item) => item.imdbID === result.imdbID) >= 0) {
-        return { ...result, selected: true };
-      } else {
-        return { ...result, selected: false };
-      }
-    });
-    setCount(searchResponse.data.totalResults);
-    setResults(rawResults);
+    console.log(searchResponse);
+    if (searchResponse.data.Response === "True") {
+      const rawResults = searchResponse.data.Search.map((result) => {
+        if (nominated.findIndex((item) => item.imdbID === result.imdbID) >= 0) {
+          return { ...result, selected: true };
+        } else {
+          return { ...result, selected: false };
+        }
+      });
+      setCount(searchResponse.data.totalResults);
+      setResults(rawResults);
+    }
   };
 
   const nominate = (id) => {
