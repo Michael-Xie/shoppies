@@ -27,10 +27,12 @@ function App() {
                 ? "No movies found. Try again."
                 : ""
             }
+            handleClick={(value) => nominate(value)}
           />
         </div>
         <div className="nominations"></div>
       </div>
+      <p>{JSON.stringify(nominated)}</p>
     </div>
   );
 }

@@ -6,6 +6,8 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircle from "@material-ui/icons/AddCircle";
+import RemoveCircle from "@material-ui/icons/RemoveCircle";
+import CheckCircle from "@material-ui/icons/CheckCircle";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   icon: {
-    color: "rgba(255, 255, 255, 0.54)",
+    // color: "rgba(255, 255, 255, 0.54)",
+    color: "#c6ff00",
   },
 }));
 
@@ -41,7 +44,12 @@ const useStyles = makeStyles((theme) => ({
  *   },
  * ];
  */
-export default function TitlebarGridList({ results, title }) {
+export default function TitlebarGridList({
+  results,
+  title,
+  type = "results",
+  handleClick,
+}) {
   const classes = useStyles();
 
   return (
@@ -61,8 +69,10 @@ export default function TitlebarGridList({ results, title }) {
                   <IconButton
                     aria-label={`Adds ${tile.Title} (${tile.Year}) to nomination`}
                     className={classes.icon}
+                    onClick={() => handleClick(tile.imdbID)}
+                    disabled={tile.selected ? true : false}
                   >
-                    <AddCircle />
+                    {tile.selected ? <CheckCircle /> : <AddCircle />}
                   </IconButton>
                 }
               />
