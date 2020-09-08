@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const RESULT_PER_PAGE = 10;
@@ -41,7 +41,6 @@ const useAppState = (initialNominations, resultsPerPage = RESULT_PER_PAGE) => {
     setResults(newResults);
     setNominated((prev) => {
       // store for later retrieval when user leaves page
-
       localStorage.setItem(
         "nominations",
         JSON.stringify([...prev, newResults[resultIndex]])

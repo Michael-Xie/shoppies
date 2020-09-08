@@ -4,11 +4,8 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import IconButton from "@material-ui/core/IconButton";
-import AddCircle from "@material-ui/icons/AddCircle";
-import RemoveCircle from "@material-ui/icons/RemoveCircle";
-import CheckCircle from "@material-ui/icons/CheckCircle";
 import ActionIcon from "./ActionIcon";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -21,29 +18,8 @@ const useStyles = makeStyles((theme) => ({
     width: "50%",
     height: "100%",
   },
-  icon: {
-    // color: "rgba(255, 255, 255, 0.54)",
-    color: "#c6ff00",
-  },
 }));
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
 export default function TitlebarGridList({
   results,
   error,
@@ -54,7 +30,6 @@ export default function TitlebarGridList({
   const classes = useStyles();
 
   return (
-    // <div className={classes.root}>
     <GridList cellHeight={200} className={classes.gridList} cols={2}>
       <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
         <ListSubheader component="div">{title}</ListSubheader>
@@ -66,17 +41,7 @@ export default function TitlebarGridList({
             <GridListTileBar
               title={`${tile.Title}`}
               subtitle={<span>{tile.Year}</span>}
-              actionIcon={
-                //   <IconButton
-                //     aria-label={`Adds ${tile.Title} (${tile.Year}) to nomination`}
-                //     className={classes.icon}
-                //     onClick={() => handleClick(tile.imdbID)}
-                //     disabled={tile.selected ? true : false}
-                //   >
-                //     {tile.selected ? <CheckCircle /> : <AddCircle />}
-                //   </IconButton>
-                ActionIcon(tile, type, handleClick)
-              }
+              actionIcon={ActionIcon(tile, type, handleClick)}
             />
           </GridListTile>
         ))
@@ -86,6 +51,5 @@ export default function TitlebarGridList({
         </GridListTile>
       )}
     </GridList>
-    // </div>
   );
 }
