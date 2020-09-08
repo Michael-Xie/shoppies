@@ -25,6 +25,9 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
       });
       setCount(searchResponse.data.totalResults);
       setResults(rawResults);
+    } else {
+      setCount(0);
+      setResults([]);
     }
   };
 
