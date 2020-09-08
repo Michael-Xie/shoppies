@@ -8,6 +8,7 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
   const [results, setResults] = useState([]);
   const [count, setCount] = useState(0);
   const [nominated, setNominated] = useState([]);
+  const [error, setError] = useState("");
 
   const search = async (term, type = "movie", page = 1) => {
     console.log("enters search");
@@ -25,9 +26,11 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
       });
       setCount(searchResponse.data.totalResults);
       setResults(rawResults);
+      setError("");
     } else {
       setCount(0);
       setResults([]);
+      setError(searchResponse.data.Error);
     }
   };
 
@@ -60,7 +63,7 @@ const useAppState = (resultsPerPage = RESULT_PER_PAGE) => {
       return prev;
     });
   };
-  return [results, nominated, search, nominate, deNominate];
+  return [results, nominated, error, search, nominate, deNominate];
 };
 
 export default useAppState;

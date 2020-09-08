@@ -5,7 +5,14 @@ import SearchBar from "material-ui-search-bar";
 import TitlebarGridList from "./components/TitleBarGridList";
 
 function App() {
-  const [results, nominated, search, nominate, DeNominate] = useAppState();
+  const [
+    results,
+    nominated,
+    error,
+    search,
+    nominate,
+    DeNominate,
+  ] = useAppState();
   const [draft, setDraft] = useState("");
   return (
     <div className="App">
@@ -19,26 +26,21 @@ function App() {
         <div className="search-results">
           <TitlebarGridList
             results={results}
-            title={
-              results.length > 0
-                ? "Search Results"
-                : draft.length > 0
-                ? "No movies found. Try again."
-                : ""
-            }
+            title={"Search Results"}
             handleClick={(value) => nominate(value)}
           />
         </div>
         <div className="nominations">
           <TitlebarGridList
             results={nominated}
-            title={"nominations"}
+            error={error}
+            title={"Nominations"}
             type={"nominations"}
-            handleClick={(value) => console.log(value, nominated)}
+            handleClick={(value) => DeNominate(value)}
           />
         </div>
       </div>
-      <p>{JSON.stringify(nominated)}</p>
+      {/* <p>{JSON.stringify(nominated)}</p> */}
     </div>
   );
 }

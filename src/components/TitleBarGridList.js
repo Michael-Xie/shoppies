@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function TitlebarGridList({
   results,
+  error,
   title,
   type = "results",
   handleClick,
@@ -58,7 +59,7 @@ export default function TitlebarGridList({
         <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
           <ListSubheader component="div">{title}</ListSubheader>
         </GridListTile>
-        {results.length > 0 &&
+        {results.length > 0 ? (
           results.map((tile) => (
             <GridListTile key={`${tile.Poster}-${tile.Year}`}>
               <img src={tile.Poster} alt={tile.Title} />
@@ -78,7 +79,12 @@ export default function TitlebarGridList({
                 }
               />
             </GridListTile>
-          ))}
+          ))
+        ) : (
+          <GridListTile key="message" cols={2} style={{ height: "auto" }}>
+            <ListSubheader component="div">Nothing to Show</ListSubheader>
+          </GridListTile>
+        )}
       </GridList>
     </div>
   );
